@@ -1,9 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using LojaWebCSharp.Data;
+using Microsoft.Extensions.Options;
+using ServiceStack.Text;
+
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<LojaWebCSharpContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LojaWebCSharpContext") ?? throw new InvalidOperationException("Connection string 'LojaWebCSharpContext' not found.")));
+
+builder.Services.AddDbContext<LojaWebCSharpContext>(options =>{
+    var connectionString = builder.Configuration.GetConnectionString("LojaWebCSharpContext");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+});
+
+//builder.Services.AddDbContext<LojaWebCSharpContext>(options =>
+//options.UseSqlServer(builder.Configuration.GetConnectionString("LojaWebCSharpContext") ?? throw new InvalidOperationException("Connection string 'LojaWebCSharpContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

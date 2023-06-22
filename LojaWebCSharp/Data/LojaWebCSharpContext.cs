@@ -14,8 +14,6 @@ namespace LojaWebCSharp.Data
         {
         }
 
-        public DbSet<LojaWebCSharp.Models.Department> Department { get; set; } = default!;
-
-        public DbSet<LojaWebCSharp.Models.Departamento>? Departamento { get; set; }
+        public DbSet<LojaWebCSharp.Models.Departamento>? Departamento { get; set; } = default!;
     }
 }
