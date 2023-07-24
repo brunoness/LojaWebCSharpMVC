@@ -3,6 +3,7 @@ using System;
 using LojaWebCSharp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LojaWebCSharp.Migrations
 {
     [DbContext(typeof(LojaWebCSharpContext))]
-    partial class LojaWebCSharpContextModelSnapshot : ModelSnapshot
+    [Migration("20230724141951_OutrasEntidades2")]
+    partial class OutrasEntidades2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
