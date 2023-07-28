@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using LojaWebCSharp.Data;
-using Microsoft.Extensions.Options;
-using ServiceStack.Text;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +8,7 @@ builder.Services.AddDbContext<LojaWebCSharpContext>(options =>{
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
+builder.Services.AddScoped<SeedingService>();
 //builder.Services.AddDbContext<LojaWebCSharpContext>(options =>
 //options.UseSqlServer(builder.Configuration.GetConnectionString("LojaWebCSharpContext") ?? throw new InvalidOperationException("Connection string 'LojaWebCSharpContext' not found.")));
 
@@ -20,11 +17,18 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+using (var serviceScope = app.Services.CreateScope()) {
+    var services = serviceScope.ServiceProvider;
+  
+    var myDependency = services.GetRequiredService<SeedingService>();
+    myDependency.Seed();
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment()) {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseHsts();   
 }
 
 app.UseHttpsRedirection();

@@ -8,13 +8,26 @@ Reescrevendo o projeto do curso com as versões atualizadas das ferramentas util
 * Entity Framework 7.0
 * MySQL (Pomelo.EntityFrameworkCore.MySql - 7.0)
 
-
 1ª Alteração:
-builder.Services.AddDbContext<LojaWebCSharpContext>(options =>
-{
-    var connectionString = builder.Configuration.GetConnectionString("LojaWebCSharpContext");
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-});
+Ep. "Adaptação para MySQL e primeira migration", adaptação para uso com arquivo "Program.cs"
+    builder.Services.AddDbContext<LojaWebCSharpContext>(options =>
+    {
+        var connectionString = builder.Configuration.GetConnectionString("LojaWebCSharpContext");
+        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    });
 
-*** MUDANDO O TEMA BOOTSTRAP
+2ª Alteração:
+Ep. "Seeding Service", para iniciar o serviço na execução, adaptação para uso com arquivo "Program.cs"
+
+    builder.Services.AddScoped<SeedingService>();
+
+    using (var serviceScope = app.Services.CreateScope()) 
+    {
+        var services = serviceScope.ServiceProvider;
+    
+        var myDependency = services.GetRequiredService<SeedingService>();
+        myDependency.Seed();
+    }
+
+
 https://github.com/brunoness/LojaWebCSharpMVC.git
