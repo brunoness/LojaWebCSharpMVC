@@ -1,4 +1,5 @@
-﻿using LojaWebCSharp.Services;
+﻿using LojaWebCSharp.Models;
+using LojaWebCSharp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LojaWebCSharp.Controllers {
@@ -13,6 +14,17 @@ namespace LojaWebCSharp.Controllers {
 
             var list = _vendedorService.FindAll();
             return View(list);
+        }
+
+        public IActionResult Create() {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Vendedor vendedor) {
+            _vendedorService.Insert(vendedor);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

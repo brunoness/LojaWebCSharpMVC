@@ -1,0 +1,36 @@
+﻿@model LojaWebCSharp.Models.Vendedor
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Criar</h2>
+
+<h4>Vendedor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DataNascimento" class="control-label"></label>
+                <input asp-for="DataNascimento" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SalarioBase" class="control-label"></label>
+                <input asp-for="SalarioBase" class="form-control" />
+            </div>
+            <div class="form-group">
+                <p>  </p>
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </form>        
+    </div>
+</div>
