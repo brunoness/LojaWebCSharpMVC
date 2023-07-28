@@ -10,6 +10,7 @@ Reescrevendo o projeto do curso com as versões atualizadas das ferramentas util
 
 1ª Alteração:
 Ep. "Adaptação para MySQL e primeira migration", adaptação para uso com arquivo "Program.cs"
+
     builder.Services.AddDbContext<LojaWebCSharpContext>(options =>
     {
         var connectionString = builder.Configuration.GetConnectionString("LojaWebCSharpContext");
@@ -29,5 +30,9 @@ Ep. "Seeding Service", para iniciar o serviço na execução, adaptação para u
         myDependency.Seed();
     }
 
+3ª Alteração:
+Ep. "SellerService e FindAll síncrono", declaração do serviço, adaptação para uso com arquivo "Program.cs"
+
+    builder.Services.AddScoped<VendedorService>();
 
 https://github.com/brunoness/LojaWebCSharpMVC.git
