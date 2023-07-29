@@ -11,6 +11,7 @@ builder.Services.AddDbContext<LojaWebCSharpContext>(options =>{
 
 builder.Services.AddScoped<SeedingService>();
 builder.Services.AddScoped<VendedorService>();
+builder.Services.AddScoped<DepartamentoService>();
 
 //builder.Services.AddDbContext<LojaWebCSharpContext>(options =>
 //options.UseSqlServer(builder.Configuration.GetConnectionString("LojaWebCSharpContext") ?? throw new InvalidOperationException("Connection string 'LojaWebCSharpContext' not found.")));

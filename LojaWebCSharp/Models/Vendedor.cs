@@ -6,6 +6,7 @@
         public DateTime DataNascimento  { get; set; }
         public double SalarioBase { get; set; }
         public Departamento Departamento { get; set; }
+        public int DepartamentoId { get; set; }
         public ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
 
         public Vendedor() { }
