@@ -1,6 +1,7 @@
 ﻿using LojaWebCSharp.Models;
 using LojaWebCSharp.Models.ViewModels;
 using LojaWebCSharp.Services;
+using LojaWebCSharp.Services.Excessoes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LojaWebCSharp.Controllers {
@@ -60,6 +61,40 @@ namespace LojaWebCSharp.Controllers {
                 return NotFound();
             }
             return View(obj);
+        }
+
+        public IActionResult Edit(int? id) {
+            if (id == null) {
+                return NotFound();
+            }
+            var obj = _vendedorService.FindById(id.Value);
+            if (obj == null) {
+                return NotFound();
+            }
+
+            List<Departamento> departamentos = _departamentoService.FindAll();
+            VendedorFormViewModel vielModel = new VendedorFormViewModel {Vendedor = obj, Departamentos = departamentos };
+            return View(vielModel);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Vendedor vendedor) {
+            if (id != vendedor.Id) {
+                return BadRequest();
+            }
+            try {
+                _vendedorService.Update(vendedor);
+                return RedirectToAction(nameof(Index));
+            } 
+            catch (NotFoundExcessao) {
+                return NotFound(); 
+            } 
+            catch (DbConcurrencyExcessao) {
+                return BadRequest();
+            }
+
         }
     }
 }
