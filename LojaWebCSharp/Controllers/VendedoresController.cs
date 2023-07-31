@@ -3,6 +3,7 @@ using LojaWebCSharp.Models.ViewModels;
 using LojaWebCSharp.Services;
 using LojaWebCSharp.Services.Excessoes;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace LojaWebCSharp.Controllers {
     public class VendedoresController : Controller {
@@ -35,12 +36,12 @@ namespace LojaWebCSharp.Controllers {
 
         public IActionResult Delete(int? id) {
             if (id == null) {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id nulo ou não informado." });               
             }
 
             var obj = _vendedorService.FindById(id.Value);
             if (obj == null) {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não existe." });
             }
             return View(obj);
         }
@@ -54,22 +55,22 @@ namespace LojaWebCSharp.Controllers {
 
         public IActionResult Details(int? id) {
             if (id == null) {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id nulo ou não informado." });
             }
             var obj = _vendedorService.FindById(id.Value);
             if (obj == null) {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não existe." });
             }
             return View(obj);
         }
 
         public IActionResult Edit(int? id) {
             if (id == null) {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id nulo ou não informado." });
             }
             var obj = _vendedorService.FindById(id.Value);
             if (obj == null) {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não existe." });
             }
 
             List<Departamento> departamentos = _departamentoService.FindAll();
@@ -82,19 +83,25 @@ namespace LojaWebCSharp.Controllers {
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Vendedor vendedor) {
             if (id != vendedor.Id) {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = "Id's não correspondem." });
             }
             try {
                 _vendedorService.Update(vendedor);
                 return RedirectToAction(nameof(Index));
             } 
-            catch (NotFoundExcessao) {
-                return NotFound(); 
+            catch (ApplicationException e) {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             } 
-            catch (DbConcurrencyExcessao) {
-                return BadRequest();
-            }
 
+        }
+
+        public IActionResult Error(string message) {
+            var vielModel = new ErrorViewModel {
+
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(vielModel);
         }
     }
 }
