@@ -1,9 +1,23 @@
-﻿namespace LojaWebCSharp.Models {
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LojaWebCSharp.Models {
     public class Vendedor {
         public int Id { get; set; }
+
+        [Display(Name = "Nome")]
         public string Name { get; set; }
+
+        [Display(Name = "E-mail")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
+        [Display(Name = "Data de Nascimento")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataNascimento  { get; set; }
+
+        [Display(Name = "Salário Base")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
         public double SalarioBase { get; set; }
         public Departamento Departamento { get; set; }
         public int DepartamentoId { get; set; }

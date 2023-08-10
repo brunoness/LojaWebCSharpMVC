@@ -1,8 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using LojaWebCSharp.Data;
 using LojaWebCSharp.Services;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var culture = new List<CultureInfo> {
+        new CultureInfo("pt"),
+        new CultureInfo("en")
+    };
+    options.DefaultRequestCulture = new RequestCulture("pt");
+    options.SupportedCultures = culture;
+    options.SupportedUICultures = culture;
+});
+
+
+/*  
+var ptBR = new CultureInfo("pt-BR");
+var localizationOptions = RequestLocalizationOptions {
+    DefaultRequestCulture = new RequestCulture(ptBR),
+    SupportedCultures = new List<CultureInfo> { ptBR },
+    SupportedUiCultures = new List<CultureInfo> { ptBR }
+    };
+*/
 
 builder.Services.AddDbContext<LojaWebCSharpContext>(options =>{
     var connectionString = builder.Configuration.GetConnectionString("LojaWebCSharpContext");
@@ -36,6 +59,7 @@ if (!app.Environment.IsDevelopment()) {
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();

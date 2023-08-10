@@ -34,5 +34,18 @@ Declaração do serviço, adaptação para uso com arquivo "Program.cs"
     builder.Services.AddScoped<VendedorService>();
     builder.Services.AddScoped<DepartamentoService>();
 
+Ep. "App locale, number and date formatting" declarando o local com "Program.cs"
 
+    builder.Services.Configure<RequestLocalizationOptions>(options => 
+    {
+        var culture = new List<CultureInfo> {
+            new CultureInfo("pt"),
+            new CultureInfo("en")
+        };
+        options.DefaultRequestCulture = new RequestCulture("pt");
+        options.SupportedCultures = culture;
+        options.SupportedUICultures = culture;
+    });
+
+    
 https://github.com/brunoness/LojaWebCSharpMVC.git
