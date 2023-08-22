@@ -5,12 +5,17 @@ namespace LojaWebCSharp.Models {
         public int Id { get; set; }
 
         [Display(Name = "Nome")]
+        [Required(ErrorMessage ="{0} requerido")]
+        [StringLength(50, ErrorMessage = "{0} tamanho máximo de {1}")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "{0} requerido")]
+        [EmailAddress(ErrorMessage ="Entrar com um e-mail válido")]
         [Display(Name = "E-mail")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "{0} requerido")]
         [Display(Name = "Data de Nascimento")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
