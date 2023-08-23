@@ -25,9 +25,14 @@ namespace LojaWebCSharp.Services {
         }
 
         public async Task RemoveAsync(int id) {
+            try { 
             var obj = await _context.Vendedor.FindAsync(id);
             _context.Vendedor.Remove(obj);
             await _context.SaveChangesAsync();
+            } catch (DbUpdateException e) {
+                throw new Integridade("Não é possivel deletar o vendero.");
+
+            }
         }
 
         public async Task UpdateAsync(Vendedor obj) {
