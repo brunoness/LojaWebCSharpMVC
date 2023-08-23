@@ -1,5 +1,6 @@
 ﻿using LojaWebCSharp.Data;
 using LojaWebCSharp.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace LojaWebCSharp.Services {
@@ -10,8 +11,8 @@ namespace LojaWebCSharp.Services {
             _context = context;
         }
 
-        public List<Departamento> FindAll() {
-            return _context.Departamento.OrderBy(X => X.Nome).ToList();
+        public async Task<List<Departamento>> FindAllAsync() {
+            return await _context.Departamento.OrderBy(X => X.Nome).ToListAsync();
         }
 
     }
