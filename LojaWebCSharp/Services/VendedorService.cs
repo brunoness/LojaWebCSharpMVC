@@ -30,7 +30,7 @@ namespace LojaWebCSharp.Services {
             _context.Vendedor.Remove(obj);
             await _context.SaveChangesAsync();
             } catch (DbUpdateException e) {
-                throw new Integridade("Não é possivel deletar o vendero.");
+                throw new Integridade("Não é possivel deletar o vendedor.");
 
             }
         }
