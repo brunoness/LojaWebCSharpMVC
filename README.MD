@@ -47,5 +47,3 @@ Ep. "App locale, number and date formatting" declarando o local com "Program.cs"
         options.SupportedUICultures = culture;
     });
 
-    
-https://github.com/brunoness/LojaWebCSharpMVC.git
